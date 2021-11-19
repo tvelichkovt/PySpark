@@ -1,0 +1,4 @@
+from pyspark.sql import SparkSession
+spark=SparkSession.builder.appName('app1').getOrCreate()
+df=spark.read.option('header','true').csv('Salaries.csv')
+df.printSchema(),df.limit(1).show(vertical=True),df.describe().show()
