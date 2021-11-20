@@ -2,3 +2,8 @@ from pyspark.sql import SparkSession
 spark=SparkSession.builder.appName('app1').getOrCreate()
 df=spark.read.option('header','true').csv('Salaries.csv')
 df.printSchema(),df.limit(1).show(vertical=True),df.describe().show()
+
+from pyspark.sql.functions import col
+df.filter(col('City')=='Berlin').show()
+
+df.groupBy('Country').agg({'Salary':'sum'}).filter(df.Country != "USA").orderBy('sum(Salary)', ascending=True).show()
